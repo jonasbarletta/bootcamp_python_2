@@ -1,5 +1,6 @@
 # Bootcamp Python Jornada de Dados (Aulas 06 a 10)
 
+## Aula 06 - Bibliotecas de Padronização na Formatação dos Códigos
 
 pyenv local 3.12
 
@@ -52,3 +53,45 @@ Para usar essa biblioteca você deve definir o que deve ser conferido pelo pre-c
 Rodar o comando poetry run pre-commit install.
 
 Isso era adicionar a pasta hook dentro da pasta .git.
+
+Agora sempre que fizer um commit ele fará todos os testes que configurou. Se tiver algum erro de formatação ele corrige automaticamente e te avisa se algo falhou. Caso haja alguma falha e vai corrigir e basta adicionar o arquivo que falhou e comitar novamente. Desta vez tudo estará certo.
+
+## Aula 07 - Revisão de Funções
+
+## Aula 08 - ETL: funções de extração, tranformação e load
+
+Leitura de aquivos JSON -> Concatena DataFrames -> Transformação de Dados -> Decisão de saída CSV ou Parquet -> Salva em CSV ou Parquet 
+
+Opções de ferramentas:
+
+- Ferramentas de processamento: Pandas, Polars, DuckDB, Spark ou Dask
+
+- Ferramente de qualidade: Pydantic ou Pandera.
+
+Vamos utilizar Pandas e Pandera.
+
+Organização do projeto: 
+
+    - etl.py: funções do etl
+    - pipeline.py: execusão das funções
+    - schema.py: validação dos dados
+
+## Aula 09 - ETL: validação com Pandera e decoradores
+
+Biblioteca de Log: Loguru
+
+poetry add loguru
+
+Tipos de Log:
+
+    - logger.debug('Um aviso para o desenvolvedor (ou eu mesmo) no futuro')
+    - logger.info('Informacao importante do processo')
+    - logger.warning('Um aviso que algo vai parar de funcionar no futuro')
+    - logger.error('Aconteceu uma falha')
+    - logger.critical('Aconteceu uma falha que aborta a aplicacao')
+
+Podemos definir um arquivo que receberá os armazenará os Logs:
+
+logger.add("nome_do_arquivo_de_logs.log",
+           format = "{time} {level} {message} {file}", # formato de armazenamento da mensagem, mas o formato padrão já é bem formatado.
+           level = "CRITICAL" ) # qual nível de Log será armezanado
