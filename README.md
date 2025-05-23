@@ -95,3 +95,15 @@ Podemos definir um arquivo que receberá os armazenará os Logs:
 logger.add("nome_do_arquivo_de_logs.log",
            format = "{time} {level} {message} {file}", # formato de armazenamento da mensagem, mas o formato padrão já é bem formatado.
            level = "CRITICAL" ) # qual nível de Log será armezanado
+
+Agora, adicionar esses comandos de logs manualmente em cada etapa que quiser visualizar pode não ser a melhor estratégia quando tiver várias ETLs rodando. Para resolver esse problema que utilizaremos decoradores.
+
+Os decoradores são é uma função que recebe outra função como parâmetros e acrescenta funcionalidades nela. 
+
+Exemplos:
+ - Em log.py defini um decorador que acrescenta às funções comandos de log. Para utilizar esse decorador basta incluir @log_decorator antes da função que quer analisar o log.
+ - Em decorador_inutil.py defini um decorador para printar 'Essa funcionalidade inútil foi acrescentada à função.'.
+ - Em time_decorator.py defini um decorador que calcula o tempo de execução de uma função.
+ - Em tenacity_decorador.py importei da biblioteca tenacity o decorador 'retry' e alguns paramêtros adicionando a funcionalidade de 'tentar novamente' caso o usuário (ou outra coisa, por exemplo, uma API retornar um status diferente de 200) faça uma ação não esperada.
+
+ Entender o conceito de decorador é importante pois algumas bibliotecas que utilizamos no dia a dia usam essa ferramenta. Por exemplo, o Pandera para validação de dados.

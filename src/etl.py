@@ -5,7 +5,10 @@ import re
 import pandas as pd
 from loguru import logger
 
+from log import log_decorator
 
+
+@log_decorator
 def extrair_dados(pasta: str) -> pd.DataFrame:
 
     arquivos_json = glob.glob(os.path.join(pasta, "*.json"))
@@ -17,6 +20,7 @@ def extrair_dados(pasta: str) -> pd.DataFrame:
     return data
 
 
+# @log_decorator
 def to_snake_case(name):
 
     name = re.sub(r"(?<!^)(?=[A-Z])", "_", name)
@@ -24,6 +28,7 @@ def to_snake_case(name):
     return name.lower()
 
 
+@log_decorator
 def transformacoes(data: pd.DataFrame) -> pd.DataFrame:
 
     data.columns = [to_snake_case(col) for col in data.columns]
@@ -33,6 +38,7 @@ def transformacoes(data: pd.DataFrame) -> pd.DataFrame:
     return data
 
 
+@log_decorator
 def load(data: pd.DataFrame, formato: str) -> pd.DataFrame:
 
     if formato not in ("csv", "parquet"):
@@ -52,27 +58,18 @@ def load(data: pd.DataFrame, formato: str) -> pd.DataFrame:
     return None
 
 
+@log_decorator
 def pipeline(pasta: str):
-
-    logger.add("log_pipeline.log", level="INFO")
 
     pasta = "data"
 
-    logger.info("Inicio do Pipeline")
-
     df_raw = extrair_dados(pasta)
 
-    logger.info("Extração de dados Concluída")
-
     df = transformacoes(df_raw)
-
-    logger.info("Transformação Concluída")
 
     formato = input("Indique o formato do arquivo: ")
 
     load(data=df, formato=formato)
-
-    logger.info(f"Load no Formato {formato} Concluído")
 
 
 # Testando as funções
